@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Benjie Font Generator</title>
 
+<style>
+
+body{
+font-family: Arial;
+background:#111;
+color:white;
+text-align:center;
+padding:40px;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+input{
+width:300px;
+padding:10px;
+font-size:18px;
+border:none;
+border-radius:5px;
+}
+
+.container{
+margin-top:40px;
+}
+
+.result{
+background:#1e1e1e;
+margin:10px auto;
+padding:15px;
+width:350px;
+border-radius:6px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.text{
+font-size:22px;
+}
+
+button{
+padding:6px 12px;
+border:none;
+background:#4CAF50;
+color:white;
+border-radius:4px;
+cursor:pointer;
+}
+
+button:hover{
+background:#45a049;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>Font Generator</h1>
+
+<input id="input" placeholder="Type your text..." oninput="generate()">
+
+<div class="container" id="results"></div>
+
+<script>
+
+const fonts = {
+
+smallcaps:{
+a:"ᴀ",b:"ʙ",c:"ᴄ",d:"ᴅ",e:"ᴇ",f:"ꜰ",
+g:"ɢ",h:"ʜ",i:"ɪ",j:"ᴊ",k:"ᴋ",l:"ʟ",
+m:"ᴍ",n:"ɴ",o:"ᴏ",p:"ᴘ",q:"ǫ",r:"ʀ",
+s:"s",t:"ᴛ",u:"ᴜ",v:"ᴠ",w:"ᴡ",x:"x",
+y:"ʏ",z:"ᴢ"
+},
+
+supersmall:{
+a:"ᵃ",b:"ᵇ",c:"ᶜ",d:"ᵈ",e:"ᵉ",
+f:"ᶠ",g:"ᵍ",h:"ʰ",i:"ᶦ",j:"ʲ",
+k:"ᵏ",l:"ˡ",m:"ᵐ",n:"ⁿ",o:"ᵒ",
+p:"ᵖ",q:"ᵠ",r:"ʳ",s:"ˢ",t:"ᵗ",
+u:"ᵘ",v:"ᵛ",w:"ʷ",x:"ˣ",y:"ʸ",z:"ᶻ"
+}
+
+}
+
+function convert(text,map){
+
+let result=""
+
+for(let char of text.toLowerCase()){
+
+result += map[char] || char
+
+}
+
+return result
+
+}
+
+function generate(){
+
+let text=document.getElementById("input").value
+
+let container=document.getElementById("results")
+
+container.innerHTML=""
+
+for(let key in fonts){
+
+let output=convert(text,fonts[key])
+
+let div=document.createElement("div")
+div.className="result"
+
+div.innerHTML=`
+<div class="text">${output}</div>
+<button onclick="copy('${output}')">copy</button>
+`
+
+container.appendChild(div)
+
+}
+
+}
+
+function copy(text){
+
+navigator.clipboard.writeText(text)
+
+alert("copied!")
+
+}
+
+</script>
+
+</body>
+</html>
