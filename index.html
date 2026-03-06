@@ -68,6 +68,13 @@
             box-shadow: 0 0 20px rgba(78,205,196,0.3);
         }
 
+        .hint {
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
         .results {
             display: grid;
             gap: 15px;
@@ -87,6 +94,11 @@
         .style-card:hover {
             transform: translateY(-2px);
             background: rgba(255,255,255,0.08);
+        }
+
+        .style-card.featured {
+            border: 2px solid #ff6b6b;
+            background: rgba(255,107,107,0.1);
         }
 
         .style-name {
@@ -123,11 +135,6 @@
             background: linear-gradient(45deg, #4ecdc4, #44a08d);
         }
 
-        .emoji {
-            font-size: 1.2em;
-            margin-left: 5px;
-        }
-
         @media (max-width: 600px) {
             h1 { font-size: 2em; }
             .style-text { font-size: 1.2em; }
@@ -143,18 +150,33 @@
         </header>
 
         <div class="input-section">
-            <input type="text" id="input" placeholder="Type something..." oninput="generate()">
+            <input type="text" id="input" placeholder="Type something..." value="Benjie" oninput="generate()">
+            <p class="hint">💡 For Small Caps: Use UPPERCASE for big letters, lowercase for small (e.g., "BENjie" → BENᴊɪᴇ)</p>
         </div>
 
         <div id="results" class="results"></div>
     </div>
 
     <script>
+        const smallCapsMap = {
+            a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ', h: 'ʜ', i: 'ɪ',
+            j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
+            s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
+        };
+
         const fonts = {
-            'Small Caps': {
-                a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ', h: 'ʜ', i: 'ɪ',
-                j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
-                s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
+            'Small Caps (Mixed Case)': {
+                custom: true,
+                transform: (text) => {
+                    return text.split('').map(char => {
+                        if (char >= 'A' && char <= 'Z') {
+                            return char; // Keep uppercase as is (big)
+                        } else if (char >= 'a' && char <= 'z') {
+                            return smallCapsMap[char] || char; // Convert lowercase to small caps
+                        }
+                        return char;
+                    }).join('');
+                }
             },
             'Superscript': {
                 a: 'ᵃ', b: 'ᵇ', c: 'ᶜ', d: 'ᵈ', e: 'ᵉ', f: 'ᶠ', g: 'ᵍ', h: 'ʰ', i: 'ᶦ',
@@ -231,16 +253,6 @@
                 j: '𝕛', k: '𝕜', l: '𝕝', m: '𝕞', n: '𝕟', o: '𝕠', p: '𝕡', q: '𝕢', r: '𝕣',
                 s: '𝕤', t: '𝕥', u: '𝕦', v: '𝕧', w: '𝕨', x: '𝕩', y: '𝕪', z: '𝕫'
             },
-            'Strikethrough': {
-                a: 'a̶', b: 'b̶', c: 'c̶', d: 'd̶', e: 'e̶', f: 'f̶', g: 'g̶', h: 'h̶', i: 'i̶',
-                j: 'j̶', k: 'k̶', l: 'l̶', m: 'm̶', n: 'n̶', o: 'o̶', p: 'p̶', q: 'q̶', r: 'r̶',
-                s: 's̶', t: 't̶', u: 'u̶', v: 'v̶', w: 'w̶', x: 'x̶', y: 'y̶', z: 'z̶'
-            },
-            'Underline': {
-                a: 'a̲', b: 'b̲', c: 'c̲', d: 'd̲', e: 'e̲', f: 'f̲', g: 'g̲', h: 'h̲', i: 'i̲',
-                j: 'j̲', k: 'k̲', l: 'l̲', m: 'm̲', n: 'n̲', o: 'o̲', p: 'p̲', q: 'q̲', r: 'r̲',
-                s: 's̲', t: 't̲', u: 'u̲', v: 'v̲', w: 'w̲', x: 'x̲', y: 'y̲', z: 'z̲'
-            },
             'Tiny': {
                 a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ', h: 'ʜ', i: 'ɪ',
                 j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
@@ -250,46 +262,6 @@
                 a: 'ａ', b: 'ｂ', c: 'ｃ', d: 'ｄ', e: 'ｅ', f: 'ｆ', g: 'ｇ', h: 'ｈ', i: 'ｉ',
                 j: 'ｊ', k: 'ｋ', l: 'ｌ', m: 'ｍ', n: 'ｎ', o: 'ｏ', p: 'ｐ', q: 'ｑ', r: 'ｒ',
                 s: 'ｓ', t: 'ｔ', u: 'ｕ', v: 'ｖ', w: 'ｗ', x: 'ｘ', y: 'ｙ', z: 'ｚ'
-            },
-            'Mirror': {
-                a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ',
-                j: 'ɾ', k: 'ʞ', l: 'l', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ',
-                s: 's', t: 'ʇ', u: 'n', v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z'
-            },
-            'Upside Down': {
-                a: 'ɐ', b: 'q', c: 'ɔ', d: 'p', e: 'ǝ', f: 'ɟ', g: 'ƃ', h: 'ɥ', i: 'ᴉ',
-                j: 'ɾ', k: 'ʞ', l: 'l', m: 'ɯ', n: 'u', o: 'o', p: 'd', q: 'b', r: 'ɹ',
-                s: 's', t: 'ʇ', u: 'n', v: 'ʌ', w: 'ʍ', x: 'x', y: 'ʎ', z: 'z'
-            },
-            'Vaporwave': {
-                a: 'ａ', b: 'ｂ', c: 'ｃ', d: 'ｄ', e: 'ｅ', f: 'ｆ', g: 'ｇ', h: 'ｈ', i: 'ｉ',
-                j: 'ｊ', k: 'ｋ', l: 'ｌ', m: 'ｍ', n: 'ｎ', o: 'ｏ', p: 'ｐ', q: 'ｑ', r: 'ｒ',
-                s: 'ｓ', t: 'ｔ', u: 'ｕ', v: 'ｖ', w: 'ｗ', x: 'ｘ', y: 'ｙ', z: 'ｚ'
-            },
-            'Spaced': {
-                a: 'ａ', b: 'ｂ', c: 'ｃ', d: 'ｄ', e: 'ｅ', f: 'ｆ', g: 'ｇ', h: 'ｈ', i: 'ｉ',
-                j: 'ｊ', k: 'ｋ', l: 'ｌ', m: 'ｍ', n: 'ｎ', o: 'ｏ', p: 'ｐ', q: 'ｑ', r: 'ｒ',
-                s: 'ｓ', t: 'ｔ', u: 'ｕ', v: 'ｖ', w: 'ｗ', x: 'ｘ', y: 'ｙ', z: 'ｚ'
-            },
-            'Regional': {
-                a: '🅐', b: '🅑', c: '🅒', d: '🅓', e: '🅔', f: '🅕', g: '🅖', h: '🅗', i: '🅘',
-                j: '🅙', k: '🅚', l: '🅛', m: '🅜', n: '🅝', o: '🅞', p: '🅟', q: '🅠', r: '🅡',
-                s: '🅢', t: '🅣', u: '🅤', v: '🅥', w: '🅦', x: '🅧', y: '🅨', z: '🅩'
-            },
-            'Math Bold': {
-                a: '𝐚', b: '𝐛', c: '𝐜', d: '𝐝', e: '𝐞', f: '𝐟', g: '𝐠', h: '𝐡', i: '𝐢',
-                j: '𝐣', k: '𝐤', l: '𝐥', m: '𝐦', n: '𝐧', o: '𝐨', p: '𝐩', q: '𝐪', r: '𝐫',
-                s: '𝐬', t: '𝐭', u: '𝐮', v: '𝐯', w: '𝐰', x: '𝐱', y: '𝐲', z: '𝐳'
-            },
-            'Math Italic': {
-                a: '𝑎', b: '𝑏', c: '𝑐', d: '𝑑', e: '𝑒', f: '𝑓', g: '𝑔', h: 'ℎ', i: '𝑖',
-                j: '𝑗', k: '𝑘', l: '𝑙', m: '𝑚', n: '𝑛', o: '𝑜', p: '𝑝', q: '𝑞', r: '𝑟',
-                s: '𝑠', t: '𝑡', u: '𝑢', v: '𝑣', w: '𝑤', x: '𝑥', y: '𝑦', z: '𝑧'
-            },
-            'Serif Bold': {
-                a: '𝐚', b: '𝐛', c: '𝐜', d: '𝐝', e: '𝐞', f: '𝐟', g: '𝐠', h: '𝐡', i: '𝐢',
-                j: '𝐣', k: '𝐤', l: '𝐥', m: '𝐦', n: '𝐧', o: '𝐨', p: '𝐩', q: '𝐪', r: '𝐫',
-                s: '𝐬', t: '𝐭', u: '𝐮', v: '𝐯', w: '𝐰', x: '𝐱', y: '𝐲', z: '𝐳'
             }
         };
 
@@ -298,21 +270,29 @@
         }
 
         function generate() {
-            const text = document.getElementById('input').value || 'Preview';
+            const text = document.getElementById('input').value || 'Benjie';
             const container = document.getElementById('results');
             container.innerHTML = '';
 
-            for (const [name, map] of Object.entries(fonts)) {
-                const output = convert(text, map);
-                
+            for (const [name, config] of Object.entries(fonts)) {
+                let output;
+                let isFeatured = false;
+
+                if (config.custom) {
+                    output = config.transform(text);
+                    isFeatured = true;
+                } else {
+                    output = convert(text, config);
+                }
+
                 const card = document.createElement('div');
-                card.className = 'style-card';
+                card.className = `style-card ${isFeatured ? 'featured' : ''}`;
                 card.innerHTML = `
                     <div>
-                        <div class="style-name">${name}</div>
+                        <div class="style-name">${name} ${isFeatured ? '⭐' : ''}</div>
                         <div class="style-text">${output}</div>
                     </div>
-                    <button class="copy-btn" onclick="copyText('${output}', this)">Copy</button>
+                    <button class="copy-btn" onclick="copyText('${output.replace(/'/g, "\\'")}', this)">Copy</button>
                 `;
                 container.appendChild(card);
             }
@@ -328,7 +308,6 @@
                     btn.classList.remove('copied');
                 }, 2000);
             } catch (err) {
-                // Fallback
                 const textarea = document.createElement('textarea');
                 textarea.value = text;
                 document.body.appendChild(textarea);
@@ -340,7 +319,6 @@
             }
         }
 
-        // Generate initial preview
         generate();
     </script>
 </body>
