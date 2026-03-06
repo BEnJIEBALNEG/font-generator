@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Font Generator - Fancy Text Styles</title>
+    <title>Gamer Font Generator - Pro Name Styles</title>
     <style>
         * {
             margin: 0;
@@ -13,14 +13,14 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
             min-height: 100vh;
             color: #fff;
             padding: 20px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
@@ -31,10 +31,12 @@
 
         h1 {
             font-size: 3em;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .subtitle {
@@ -46,7 +48,7 @@
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
             padding: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.1);
         }
@@ -55,7 +57,7 @@
             width: 100%;
             padding: 15px 20px;
             font-size: 1.2em;
-            border: 2px solid #4ecdc4;
+            border: 2px solid #8338ec;
             border-radius: 12px;
             background: rgba(0,0,0,0.3);
             color: #fff;
@@ -64,8 +66,8 @@
         }
 
         input[type="text"]:focus {
-            border-color: #ff6b6b;
-            box-shadow: 0 0 20px rgba(78,205,196,0.3);
+            border-color: #ff006e;
+            box-shadow: 0 0 20px rgba(131,56,236,0.3);
         }
 
         .hint {
@@ -75,86 +77,262 @@
             font-size: 0.9em;
         }
 
+        .category {
+            margin: 30px 0 15px 0;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff006e, #8338ec);
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+
         .results {
             display: grid;
-            gap: 15px;
+            gap: 12px;
         }
 
         .style-card {
             background: rgba(255,255,255,0.05);
             border-radius: 12px;
-            padding: 20px;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .style-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(180deg, #ff006e, #8338ec);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
 
         .style-card:hover {
-            transform: translateY(-2px);
+            transform: translateX(5px);
             background: rgba(255,255,255,0.08);
+            border-color: rgba(131,56,236,0.3);
+        }
+
+        .style-card:hover::before {
+            opacity: 1;
         }
 
         .style-card.featured {
-            border: 2px solid #ff6b6b;
-            background: rgba(255,107,107,0.1);
+            border: 2px solid #ff006e;
+            background: linear-gradient(135deg, rgba(255,0,110,0.1), rgba(131,56,236,0.1));
+        }
+
+        .style-card.vip {
+            border: 2px solid #ffd700;
+            background: linear-gradient(135deg, rgba(255,215,0,0.1), rgba(255,0,110,0.05));
         }
 
         .style-name {
-            font-size: 0.8em;
+            font-size: 0.75em;
             color: #888;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge {
+            background: #ff006e;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7em;
+        }
+
+        .badge-vip {
+            background: #ffd700;
+            color: #000;
         }
 
         .style-text {
-            font-size: 1.5em;
+            font-size: 1.4em;
             word-break: break-all;
+            font-weight: 500;
         }
 
         .copy-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(45deg, #ff006e, #8338ec);
             border: none;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 24px;
             border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
-            min-width: 80px;
+            min-width: 90px;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 1px;
         }
 
         .copy-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(255,107,107,0.4);
+            box-shadow: 0 5px 20px rgba(255,0,110,0.4);
         }
 
         .copy-btn.copied {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            background: linear-gradient(45deg, #00f5ff, #00c9ff);
+            color: #000;
+        }
+
+        .symbol-palette {
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .symbol-palette h3 {
+            margin-bottom: 15px;
+            color: #8338ec;
+            font-size: 1.1em;
+        }
+
+        .symbol-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .symbol-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.2s;
+        }
+
+        .symbol-btn:hover {
+            background: #8338ec;
+            transform: translateY(-2px);
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2em; }
-            .style-text { font-size: 1.2em; }
-            .style-card { flex-direction: column; gap: 10px; text-align: center; }
+            h1 { font-size: 1.8em; }
+            .style-text { font-size: 1.1em; }
+            .style-card { flex-direction: column; gap: 12px; text-align: center; }
+            .style-card::before { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>✨ Font Generator</h1>
-            <p class="subtitle">Convert your text to fancy Unicode styles</p>
+            <h1>🎮 Gamer Font Generator</h1>
+            <p class="subtitle">Pro username styles with Japanese symbols & aesthetics</p>
         </header>
 
         <div class="input-section">
-            <input type="text" id="input" placeholder="Type something..." value="Benjie" oninput="generate()">
-            <p class="hint">💡 For Small Caps: Use UPPERCASE for big letters, lowercase for small (e.g., "BENjie" → BENᴊɪᴇ)</p>
+            <input type="text" id="input" placeholder="Enter your gamer tag..." value="Benjie" oninput="generate()">
+            <p class="hint">💡 Use UPPER/lowercase mix for Small Caps • Click symbols below to add them</p>
+            
+            <div class="symbol-palette">
+                <h3>🔥 Popular Gamer Symbols (Click to add)</h3>
+                <div class="symbol-grid">
+                    <button class="symbol-btn" onclick="addSymbol('ツ')" title="Katakana Small TU">ツ</button>
+                    <button class="symbol-btn" onclick="addSymbol('々')" title="Iteration Mark">々</button>
+                    <button class="symbol-btn" onclick="addSymbol('亗')" title="Japanese Symbol">亗</button>
+                    <button class="symbol-btn" onclick="addSymbol('么')" title="Chinese Symbol">么</button>
+                    <button class="symbol-btn" onclick="addSymbol('〆')" title="Japanese Symbol">〆</button>
+                    <button class="symbol-btn" onclick="addSymbol('乄')" title="Japanese Symbol">乄</button>
+                    <button class="symbol-btn" onclick="addSymbol('彡')" title="Radical">彡</button>
+                    <button class="symbol-btn" onclick="addSymbol('乛')" title="Japanese Symbol">乛</button>
+                    <button class="symbol-btn" onclick="addSymbol('✿')" title="Flower">✿</button>
+                    <button class="symbol-btn" onclick="addSymbol('❀')" title="Flower">❀</button>
+                    <button class="symbol-btn" onclick="addSymbol('✧')" title="Four Pointed Star">✧</button>
+                    <button class="symbol-btn" onclick="addSymbol('✦')" title="Four Pointed Star">✦</button>
+                    <button class="symbol-btn" onclick="addSymbol('★')" title="Star">★</button>
+                    <button class="symbol-btn" onclick="addSymbol('☆')" title="Star">☆</button>
+                    <button class="symbol-btn" onclick="addSymbol('✯')" title="Star">✯</button>
+                    <button class="symbol-btn" onclick="addSymbol('✮')" title="Star">✮</button>
+                    <button class="symbol-btn" onclick="addSymbol('⚡')" title="Lightning">⚡</button>
+                    <button class="symbol-btn" onclick="addSymbol('❄')" title="Snow">❄</button>
+                    <button class="symbol-btn" onclick="addSymbol('🔥')" title="Fire">🔥</button>
+                    <button class="symbol-btn" onclick="addSymbol('💀')" title="Skull">💀</button>
+                    <button class="symbol-btn" onclick="addSymbol('☠')" title="Skull">☠</button>
+                    <button class="symbol-btn" onclick="addSymbol('⚔')" title="Swords">⚔</button>
+                    <button class="symbol-btn" onclick="addSymbol('🏆')" title="Trophy">🏆</button>
+                    <button class="symbol-btn" onclick="addSymbol('👑')" title="Crown">👑</button>
+                    <button class="symbol-btn" onclick="addSymbol('🎯')" title="Target">🎯</button>
+                    <button class="symbol-btn" onclick="addSymbol('❖')" title="Diamond">❖</button>
+                    <button class="symbol-btn" onclick="addSymbol('◈')" title="Diamond">◈</button>
+                    <button class="symbol-btn" onclick="addSymbol('⬥')" title="Diamond">⬥</button>
+                    <button class="symbol-btn" onclick="addSymbol('⬧')" title="Diamond">⬧</button>
+                    <button class="symbol-btn" onclick="addSymbol('✘')" title="X Mark">✘</button>
+                    <button class="symbol-btn" onclick="addSymbol('✔')" title="Check">✔</button>
+                    <button class="symbol-btn" onclick="addSymbol('⸸')" title="Cross">⸸</button>
+                    <button class="symbol-btn" onclick="addSymbol('𖣘')" title="Symbol">𖣘</button>
+                </div>
+                
+                <h3>🎌 Japanese Kana & Letters</h3>
+                <div class="symbol-grid">
+                    <button class="symbol-btn" onclick="addSymbol('あ')" title="Hiragana A">あ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ア')" title="Katakana A">ア</button>
+                    <button class="symbol-btn" onclick="addSymbol('ん')" title="Hiragana N">ん</button>
+                    <button class="symbol-btn" onclick="addSymbol('ン')" title="Katakana N">ン</button>
+                    <button class="symbol-btn" onclick="addSymbol('の')" title="Hiragana NO">の</button>
+                    <button class="symbol-btn" onclick="addSymbol('ノ')" title="Katakana NO">ノ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ゔ')" title="Hiragana VU">ゔ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ヴ')" title="Katakana VU">ヴ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ー')" title="Chōonpu">ー</button>
+                    <button class="symbol-btn" onclick="addSymbol('ッ')" title="Small TSU">ッ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ヽ')" title="Iteration">ヽ</button>
+                    <button class="symbol-btn" onclick="addSymbol('ヾ')" title="Voiced Iteration">ヾ</button>
+                </div>
+
+                <h3>👑 Clan Tags & Brackets</h3>
+                <div class="symbol-grid">
+                    <button class="symbol-btn" onclick="addSymbol('[ ]')">[ ]</button>
+                    <button class="symbol-btn" onclick="addSymbol('{ }')">{ }</button>
+                    <button class="symbol-btn" onclick="addSymbol('⟨ ⟩')">⟨ ⟩</button>
+                    <button class="symbol-btn" onclick="addSymbol('「 」')">「 」</button>
+                    <button class="symbol-btn" onclick="addSymbol('『 』')">『 』</button>
+                    <button class="symbol-btn" onclick="addSymbol('【 】')">【 】</button>
+                    <button class="symbol-btn" onclick="addSymbol('〖 〗')">〖 〗</button>
+                    <button class="symbol-btn" onclick="addSymbol('〘 〙')">〘 〙</button>
+                    <button class="symbol-btn" onclick="addSymbol('〚 〛')">〚 〛</button>
+                    <button class="symbol-btn" onclick="addSymbol('《 》')">《 》</button>
+                    <button class="symbol-btn" onclick="addSymbol('〈 〉')">〈 〉</button>
+                    <button class="symbol-btn" onclick="addSymbol('｢ ｣')">｢ ｣</button>
+                </div>
+            </div>
         </div>
 
-        <div id="results" class="results"></div>
+        <div class="category">🎯 Featured Styles</div>
+        <div id="featured-results" class="results"></div>
+
+        <div class="category">🇯🇵 Japanese Style</div>
+        <div id="japanese-results" class="results"></div>
+
+        <div class="category">⚔️ Gamer Aesthetic</div>
+        <div id="gamer-results" class="results"></div>
+
+        <div class="category">✨ Classic Styles</div>
+        <div id="classic-results" class="results"></div>
     </div>
 
     <script>
@@ -164,138 +342,152 @@
             s: 's', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
         };
 
-        const fonts = {
-            'Small Caps (Mixed Case)': {
-                custom: true,
-                transform: (text) => {
-                    return text.split('').map(char => {
-                        if (char >= 'A' && char <= 'Z') {
-                            return char; // Keep uppercase as is (big)
-                        } else if (char >= 'a' && char <= 'z') {
-                            return smallCapsMap[char] || char; // Convert lowercase to small caps
-                        }
-                        return char;
-                    }).join('');
-                }
-            },
-            'Superscript': {
-                a: 'ᵃ', b: 'ᵇ', c: 'ᶜ', d: 'ᵈ', e: 'ᵉ', f: 'ᶠ', g: 'ᵍ', h: 'ʰ', i: 'ᶦ',
-                j: 'ʲ', k: 'ᵏ', l: 'ˡ', m: 'ᵐ', n: 'ⁿ', o: 'ᵒ', p: 'ᵖ', q: 'ᵠ', r: 'ʳ',
-                s: 'ˢ', t: 'ᵗ', u: 'ᵘ', v: 'ᵛ', w: 'ʷ', x: 'ˣ', y: 'ʸ', z: 'ᶻ'
-            },
-            'Subscript': {
-                a: 'ₐ', b: 'ᵦ', c: '𝒸', d: '𝒹', e: 'ₑ', f: '𝒻', g: '𝓰', h: 'ₕ', i: 'ᵢ',
-                j: 'ⱼ', k: 'ₖ', l: 'ₗ', m: 'ₘ', n: 'ₙ', o: 'ₒ', p: 'ₚ', q: 'ᵩ', r: 'ᵣ',
-                s: 'ₛ', t: 'ₜ', u: 'ᵤ', v: 'ᵥ', w: '𝓌', x: 'ₓ', y: 'ᵧ', z: '𝓏'
-            },
-            'Bold': {
-                a: '𝐚', b: '𝐛', c: '𝐜', d: '𝐝', e: '𝐞', f: '𝐟', g: '𝐠', h: '𝐡', i: '𝐢',
-                j: '𝐣', k: '𝐤', l: '𝐥', m: '𝐦', n: '𝐧', o: '𝐨', p: '𝐩', q: '𝐪', r: '𝐫',
-                s: '𝐬', t: '𝐭', u: '𝐮', v: '𝐯', w: '𝐰', x: '𝐱', y: '𝐲', z: '𝐳'
-            },
-            'Italic': {
-                a: '𝘢', b: '𝘣', c: '𝘤', d: '𝘥', e: '𝘦', f: '𝘧', g: '𝘨', h: '𝘩', i: '𝘪',
-                j: '𝘫', k: '𝘬', l: '𝘭', m: '𝘮', n: '𝘯', o: '𝘰', p: '𝘱', q: '𝘲', r: '𝘳',
-                s: '𝘴', t: '𝘵', u: '𝘶', v: '𝘷', w: '𝘸', x: '𝘹', y: '𝘺', z: '𝘻'
-            },
-            'Bold Italic': {
-                a: '𝙖', b: '𝙗', c: '𝙘', d: '𝙙', e: '𝙚', f: '𝙛', g: '𝙜', h: '𝙝', i: '𝙞',
-                j: '𝙟', k: '𝙠', l: '𝙡', m: '𝙢', n: '𝙣', o: '𝙤', p: '𝙥', q: '𝙦', r: '𝙧',
-                s: '𝙨', t: '𝙩', u: '𝙪', v: '𝙫', w: '𝙬', x: '𝙭', y: '𝙮', z: '𝙯'
-            },
-            'Monospace': {
-                a: '𝚊', b: '𝚋', c: '𝚌', d: '𝚍', e: '𝚎', f: '𝚏', g: '𝚐', h: '𝚑', i: '𝚒',
-                j: '𝚓', k: '𝚔', l: '𝚕', m: '𝚖', n: '𝚗', o: '𝚘', p: '𝚙', q: '𝚚', r: '𝚛',
-                s: '𝚜', t: '𝚝', u: '𝚞', v: '𝚟', w: '𝚠', x: '𝚡', y: '𝚢', z: '𝚣'
-            },
-            'Bubble': {
-                a: 'ⓐ', b: 'ⓑ', c: 'ⓒ', d: 'ⓓ', e: 'ⓔ', f: 'ⓕ', g: 'ⓖ', h: 'ⓗ', i: 'ⓘ',
-                j: 'ⓙ', k: 'ⓚ', l: 'ⓛ', m: 'ⓜ', n: 'ⓝ', o: 'ⓞ', p: 'ⓟ', q: 'ⓠ', r: 'ⓡ',
-                s: 'ⓢ', t: 'ⓣ', u: 'ⓤ', v: 'ⓥ', w: 'ⓦ', x: 'ⓧ', y: 'ⓨ', z: 'ⓩ'
-            },
-            'Black Bubble': {
-                a: '🅐', b: '🅑', c: '🅒', d: '🅓', e: '🅔', f: '🅕', g: '🅖', h: '🅗', i: '🅘',
-                j: '🅙', k: '🅚', l: '🅛', m: '🅜', n: '🅝', o: '🅞', p: '🅟', q: '🅠', r: '🅡',
-                s: '🅢', t: '🅣', u: '🅤', v: '🅥', w: '🅦', x: '🅧', y: '🅨', z: '🅩'
-            },
-            'Square': {
-                a: '🄰', b: '🄱', c: '🄲', d: '🄳', e: '🄴', f: '🄵', g: '🄶', h: '🄷', i: '🄸',
-                j: '🄹', k: '🄺', l: '🄻', m: '🄼', n: '🄽', o: '🄾', p: '🄿', q: '🅀', r: '🅁',
-                s: '🅂', t: '🅃', u: '🅄', v: '🅅', w: '🅆', x: '🅇', y: '🅈', z: '🅉'
-            },
-            'Black Square': {
-                a: '🅰', b: '🅱', c: '🅲', d: '🅳', e: '🅴', f: '🅵', g: '🅶', h: '🅷', i: '🅸',
-                j: '🅹', k: '🅺', l: '🅻', m: '🅼', n: '🅽', o: '🅾', p: '🅿', q: '🆀', r: '🆁',
-                s: '🆂', t: '🆃', u: '🆄', v: '🆅', w: '🆆', x: '🆇', y: '🆈', z: '🆉'
-            },
-            'Cursive': {
-                a: '𝒶', b: '𝒷', c: '𝒸', d: '𝒹', e: '𝑒', f: '𝒻', g: '𝑔', h: '𝒽', i: '𝒾',
-                j: '𝒿', k: '𝓀', l: '𝓁', m: '𝓂', n: '𝓃', o: '𝑜', p: '𝓅', q: '𝓆', r: '𝓇',
-                s: '𝓈', t: '𝓉', u: '𝓊', v: '𝓋', w: '𝓌', x: '𝓍', y: '𝓎', z: '𝓏'
-            },
-            'Bold Cursive': {
-                a: '𝓪', b: '𝓫', c: '𝓬', d: '𝓭', e: '𝓮', f: '𝓯', g: '𝓰', h: '𝓱', i: '𝓲',
-                j: '𝓳', k: '𝓴', l: '𝓵', m: '𝓶', n: '𝓷', o: '𝓸', p: '𝓹', q: '𝓺', r: '𝓻',
-                s: '𝓼', t: '𝓽', u: '𝓾', v: '𝓿', w: '𝔀', x: '𝔁', y: '𝔂', z: '𝔃'
-            },
-            'Gothic': {
-                a: '𝔞', b: '𝔟', c: '𝔠', d: '𝔡', e: '𝔢', f: '𝔣', g: '𝔤', h: '𝔥', i: '𝔦',
-                j: '𝔧', k: '𝔨', l: '𝔩', m: '𝔪', n: '𝔫', o: '𝔬', p: '𝔭', q: '𝔮', r: '𝔯',
-                s: '𝔰', t: '𝔱', u: '𝔲', v: '𝔳', w: '𝔴', x: '𝔵', y: '𝔶', z: '𝔷'
-            },
-            'Bold Gothic': {
-                a: '𝖆', b: '𝖇', c: '𝖈', d: '𝖉', e: '𝖊', f: '𝖋', g: '𝖌', h: '𝖍', i: '𝖎',
-                j: '𝖏', k: '𝖐', l: '𝖑', m: '𝖒', n: '𝖓', o: '𝖔', p: '𝖕', q: '𝖖', r: '𝖗',
-                s: '𝖘', t: '𝖙', u: '𝖚', v: '𝖛', w: '𝖜', x: '𝖝', y: '𝖞', z: '𝖟'
-            },
-            'Double Struck': {
-                a: '𝕒', b: '𝕓', c: '𝕔', d: '𝕕', e: '𝕖', f: '𝕗', g: '𝕘', h: '𝕙', i: '𝕚',
-                j: '𝕛', k: '𝕜', l: '𝕝', m: '𝕞', n: '𝕟', o: '𝕠', p: '𝕡', q: '𝕢', r: '𝕣',
-                s: '𝕤', t: '𝕥', u: '𝕦', v: '𝕧', w: '𝕨', x: '𝕩', y: '𝕪', z: '𝕫'
-            },
-            'Tiny': {
-                a: 'ᴀ', b: 'ʙ', c: 'ᴄ', d: 'ᴅ', e: 'ᴇ', f: 'ꜰ', g: 'ɢ', h: 'ʜ', i: 'ɪ',
-                j: 'ᴊ', k: 'ᴋ', l: 'ʟ', m: 'ᴍ', n: 'ɴ', o: 'ᴏ', p: 'ᴘ', q: 'ǫ', r: 'ʀ',
-                s: 'ꜱ', t: 'ᴛ', u: 'ᴜ', v: 'ᴠ', w: 'ᴡ', x: 'x', y: 'ʏ', z: 'ᴢ'
-            },
-            'Wide': {
-                a: 'ａ', b: 'ｂ', c: 'ｃ', d: 'ｄ', e: 'ｅ', f: 'ｆ', g: 'ｇ', h: 'ｈ', i: 'ｉ',
-                j: 'ｊ', k: 'ｋ', l: 'ｌ', m: 'ｍ', n: 'ｎ', o: 'ｏ', p: 'ｐ', q: 'ｑ', r: 'ｒ',
-                s: 'ｓ', t: 'ｔ', u: 'ｕ', v: 'ｖ', w: 'ｗ', x: 'ｘ', y: 'ｙ', z: 'ｚ'
-            }
+        const fullWidthMap = {
+            a: 'ａ', b: 'ｂ', c: 'ｃ', d: 'ｄ', e: 'ｅ', f: 'ｆ', g: 'ｇ', h: 'ｈ', i: 'ｉ',
+            j: 'ｊ', k: 'ｋ', l: 'ｌ', m: 'ｍ', n: 'ｎ', o: 'ｏ', p: 'ｐ', q: 'ｑ', r: 'ｒ',
+            s: 'ｓ', t: 'ｔ', u: 'ｕ', v: 'ｖ', w: 'ｗ', x: 'ｘ', y: 'ｙ', z: 'ｚ',
+            ' ': '　'
         };
 
-        function convert(text, map) {
-            return text.toLowerCase().split('').map(char => map[char] || char).join('');
+        const circledMap = {
+            a: 'ⓐ', b: 'ⓑ', c: 'ⓒ', d: 'ⓓ', e: 'ⓔ', f: 'ⓕ', g: 'ⓖ', h: 'ⓗ', i: 'ⓘ',
+            j: 'ⓙ', k: 'ⓚ', l: 'ⓛ', m: 'ⓜ', n: 'ⓝ', o: 'ⓞ', p: 'ⓟ', q: 'ⓠ', r: 'ⓡ',
+            s: 'ⓢ', t: 'ⓣ', u: 'ⓤ', v: 'ⓥ', w: 'ⓦ', x: 'ⓧ', y: 'ⓨ', z: 'ⓩ'
+        };
+
+        function toSmallCaps(text) {
+            return text.split('').map(char => {
+                if (char >= 'A' && char <= 'Z') return char;
+                if (char >= 'a' && char <= 'z') return smallCapsMap[char] || char;
+                return char;
+            }).join('');
+        }
+
+        function toFullWidth(text) {
+            return text.toLowerCase().split('').map(char => fullWidthMap[char] || char).join('');
+        }
+
+        function toCircled(text) {
+            return text.toLowerCase().split('').map(char => circledMap[char] || char).join('');
+        }
+
+        const styles = {
+            featured: [
+                {
+                    name: 'Pro Small Caps',
+                    transform: (t) => toSmallCaps(t),
+                    badge: 'POPULAR',
+                    vip: true
+                },
+                {
+                    name: 'Elite Gamer',
+                    transform: (t) => '乂' + toSmallCaps(t) + '乂',
+                    badge: 'VIP',
+                    vip: true
+                },
+                {
+                    name: 'Shadow Clan',
+                    transform: (t) => '【' + toSmallCaps(t) + '】',
+                    badge: 'NEW',
+                    vip: true
+                },
+                {
+                    name: 'Kawaii Style',
+                    transform: (t) => toSmallCaps(t) + '✿',
+                    badge: 'CUTE',
+                    vip: false
+                }
+            ],
+            japanese: [
+                { name: 'Katakana Vibe', transform: (t) => toSmallCaps(t) + 'ツ' },
+                { name: 'Samurai Style', transform: (t) => '『' + toSmallCaps(t) + '』' },
+                { name: 'Ninja Tag', transform: (t) => '〆' + toSmallCaps(t) + '〆' },
+                { name: 'Anime Pro', transform: (t) => '《' + toSmallCaps(t) + '》' },
+                { name: 'Tokyo Drift', transform: (t) => toFullWidth(t) },
+                { name: 'Sakura Style', transform: (t) => toSmallCaps(t) + '❀' },
+                { name: 'Oni Mask', transform: (t) => '【' + toSmallCaps(t) + '】' },
+                { name: 'Ronin Way', transform: (t) => '〘' + toSmallCaps(t) + '〙' },
+                { name: 'Kawaii Desu', transform: (t) => toSmallCaps(t) + 'の' },
+                { name: 'Yakuza Style', transform: (t) => '乄' + toSmallCaps(t) + '乄' }
+            ],
+            gamer: [
+                { name: 'Toxic', transform: (t) => toSmallCaps(t) + '☠' },
+                { name: 'Lightning', transform: (t) => '⚡' + toSmallCaps(t) + '⚡' },
+                { name: 'Crowned', transform: (t) => '👑' + toSmallCaps(t) },
+                { name: 'Elite Squad', transform: (t) => '⟨' + toSmallCaps(t) + '⟩' },
+                { name: 'Ghost', transform: (t) => toSmallCaps(t) + '👻' },
+                { name: 'Firestorm', transform: (t) => '🔥' + toSmallCaps(t) + '🔥' },
+                { name: 'Ice Cold', transform: (t) => '❄' + toSmallCaps(t) + '❄' },
+                { name: 'Target Locked', transform: (t) => '🎯' + toSmallCaps(t) },
+                { name: 'Diamond Hands', transform: (t) => '💎' + toSmallCaps(t) + '💎' },
+                { name: 'Champion', transform: (t) => '🏆' + toSmallCaps(t) },
+                { name: 'Dark Souls', transform: (t) => '⸸' + toSmallCaps(t) + '⸸' },
+                { name: 'Star Power', transform: (t) => '★' + toSmallCaps(t) + '★' },
+                { name: 'Void Walker', transform: (t) => '𖣘' + toSmallCaps(t) + '𖣘' },
+                { name: 'X Factor', transform: (t) => '✘' + toSmallCaps(t) + '✘' },
+                { name: 'Check Mate', transform: (t) => '✔' + toSmallCaps(t) + '✔️' }
+            ],
+            classic: [
+                { name: 'Small Caps', transform: (t) => toSmallCaps(t) },
+                { name: 'Superscript', transform: (t) => t.toLowerCase().split('').map(c => ({a:'ᵃ',b:'ᵇ',c:'ᶜ',d:'ᵈ',e:'ᵉ',f:'ᶠ',g:'ᵍ',h:'ʰ',i:'ᶦ',j:'ʲ',k:'ᵏ',l:'ˡ',m:'ᵐ',n:'ⁿ',o:'ᵒ',p:'ᵖ',q:'ᵠ',r:'ʳ',s:'ˢ',t:'ᵗ',u:'ᵘ',v:'ᵛ',w:'ʷ',x:'ˣ',y:'ʸ',z:'ᶻ'})[c]||c).join('') },
+                { name: 'Bold', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝐚',b:'𝐛',c:'𝐜',d:'𝐝',e:'𝐞',f:'𝐟',g:'𝐠',h:'𝐡',i:'𝐢',j:'𝐣',k:'𝐤',l:'𝐥',m:'𝐦',n:'𝐧',o:'𝐨',p:'𝐩',q:'𝐪',r:'𝐫',s:'𝐬',t:'𝐭',u:'𝐮',v:'𝐯',w:'𝐰',x:'𝐱',y:'𝐲',z:'𝐳'})[c]||c).join('') },
+                { name: 'Italic', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝘢',b:'𝘣',c:'𝘤',d:'𝘥',e:'𝘦',f:'𝘧',g:'𝘨',h:'𝘩',i:'𝘪',j:'𝘫',k:'𝘬',l:'𝘭',m:'𝘮',n:'𝘯',o:'𝘰',p:'𝘱',q:'𝘲',r:'𝘳',s:'𝘴',t:'𝘵',u:'𝘶',v:'𝘷',w:'𝘸',x:'𝘹',y:'𝘺',z:'𝘻'})[c]||c).join('') },
+                { name: 'Gothic', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝔞',b:'𝔟',c:'𝔠',d:'𝔡',e:'𝔢',f:'𝔣',g:'𝔤',h:'𝔥',i:'𝔦',j:'𝔧',k:'𝔨',l:'𝔩',m:'𝔪',n:'𝔫',o:'𝔬',p:'𝔭',q:'𝔮',r:'𝔯',s:'𝔰',t:'𝔱',u:'𝔲',v:'𝔳',w:'𝔴',x:'𝔵',y:'𝔶',z:'𝔷'})[c]||c).join('') },
+                { name: 'Double Struck', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝕒',b:'𝕓',c:'𝕔',d:'𝕕',e:'𝕖',f:'𝕗',g:'𝕘',h:'𝕙',i:'𝕚',j:'𝕛',k:'𝕜',l:'𝕝',m:'𝕞',n:'𝕟',o:'𝕠',p:'𝕡',q:'𝕢',r:'𝕣',s:'𝕤',t:'𝕥',u:'𝕦',v:'𝕧',w:'𝕨',x:'𝕩',y:'𝕪',z:'𝕫'})[c]||c).join('') },
+                { name: 'Bubble', transform: (t) => toCircled(t) },
+                { name: 'Black Bubble', transform: (t) => t.toLowerCase().split('').map(c => ({a:'🅐',b:'🅑',c:'🅒',d:'🅓',e:'🅔',f:'🅕',g:'🅖',h:'🅗',i:'🅘',j:'🅙',k:'🅚',l:'🅛',m:'🅜',n:'🅝',o:'🅞',p:'🅟',q:'🅠',r:'🅡',s:'🅢',t:'🅣',u:'🅤',v:'🅥',w:'🅦',x:'🅧',y:'🅨',z:'🅩'})[c]||c).join('') },
+                { name: 'Cursive', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝒶',b:'𝒷',c:'𝒸',d:'𝒹',e:'𝑒',f:'𝒻',g:'𝑔',h:'𝒽',i:'𝒾',j:'𝒿',k:'𝓀',l:'𝓁',m:'𝓂',n:'𝓃',o:'𝑜',p:'𝓅',q:'𝓆',r:'𝓇',s:'𝓈',t:'𝓉',u:'𝓊',v:'𝓋',w:'𝓌',x:'𝓍',y:'𝓎',z:'𝓏'})[c]||c).join('') },
+                { name: 'Bold Cursive', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝓪',b:'𝓫',c:'𝓬',d:'𝓭',e:'𝓮',f:'𝓯',g:'𝓰',h:'𝓱',i:'𝓲',j:'𝓳',k:'𝓴',l:'𝓵',m:'𝓶',n:'𝓷',o:'𝓸',p:'𝓹',q:'𝓺',r:'𝓻',s:'𝓼',t:'𝓽',u:'𝓾',v:'𝓿',w:'𝔀',x:'𝔁',y:'𝔂',z:'𝔃'})[c]||c).join('') },
+                { name: 'Monospace', transform: (t) => t.toLowerCase().split('').map(c => ({a:'𝚊',b:'𝚋',c:'𝚌',d:'𝚍',e:'𝚎',f:'𝚏',g:'𝚐',h:'𝚑',i:'𝚒',j:'𝚓',k:'𝚔',l:'𝚕',m:'𝚖',n:'𝚗',o:'𝚘',p:'𝚙',q:'𝚚',r:'𝚛',s:'𝚜',t:'𝚝',u:'𝚞',v:'𝚟',w:'𝚠',x:'𝚡',y:'𝚢',z:'𝚣'})[c]||c).join('') }
+            ]
+        };
+
+        function addSymbol(symbol) {
+            const input = document.getElementById('input');
+            input.value += symbol;
+            generate();
+            input.focus();
+        }
+
+        function createCard(style, isVip = false) {
+            const text = document.getElementById('input').value || 'Benjie';
+            const output = style.transform(text);
+            
+            const card = document.createElement('div');
+            card.className = `style-card ${isVip ? 'vip' : ''}`;
+            
+            const badgeHtml = style.badge ? `<span class="badge ${style.vip ? 'badge-vip' : ''}">${style.badge}</span>` : '';
+            
+            card.innerHTML = `
+                <div>
+                    <div class="style-name">${style.name} ${badgeHtml}</div>
+                    <div class="style-text">${output}</div>
+                </div>
+                <button class="copy-btn" onclick="copyText('${output.replace(/'/g, "\\'")}', this)">Copy</button>
+            `;
+            return card;
         }
 
         function generate() {
-            const text = document.getElementById('input').value || 'Benjie';
-            const container = document.getElementById('results');
-            container.innerHTML = '';
+            // Featured
+            const featuredContainer = document.getElementById('featured-results');
+            featuredContainer.innerHTML = '';
+            styles.featured.forEach(style => featuredContainer.appendChild(createCard(style, style.vip)));
 
-            for (const [name, config] of Object.entries(fonts)) {
-                let output;
-                let isFeatured = false;
+            // Japanese
+            const japaneseContainer = document.getElementById('japanese-results');
+            japaneseContainer.innerHTML = '';
+            styles.japanese.forEach(style => japaneseContainer.appendChild(createCard(style)));
 
-                if (config.custom) {
-                    output = config.transform(text);
-                    isFeatured = true;
-                } else {
-                    output = convert(text, config);
-                }
+            // Gamer
+            const gamerContainer = document.getElementById('gamer-results');
+            gamerContainer.innerHTML = '';
+            styles.gamer.forEach(style => gamerContainer.appendChild(createCard(style)));
 
-                const card = document.createElement('div');
-                card.className = `style-card ${isFeatured ? 'featured' : ''}`;
-                card.innerHTML = `
-                    <div>
-                        <div class="style-name">${name} ${isFeatured ? '⭐' : ''}</div>
-                        <div class="style-text">${output}</div>
-                    </div>
-                    <button class="copy-btn" onclick="copyText('${output.replace(/'/g, "\\'")}', this)">Copy</button>
-                `;
-                container.appendChild(card);
-            }
+            // Classic
+            const classicContainer = document.getElementById('classic-results');
+            classicContainer.innerHTML = '';
+            styles.classic.forEach(style => classicContainer.appendChild(createCard(style)));
         }
 
         async function copyText(text, btn) {
